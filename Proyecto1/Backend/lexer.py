@@ -2,6 +2,12 @@ class Lexer:
     def __init__(self, textEntry):
         self.textEntry = textEntry
 
+    token = {"token": "IDENTIFICADOR", "lexeme": "num1", "line": "1", "column": "1"}
+    validTokens = []
+    errorTokens = []
+    validTokens.append(token)
+    print(validTokens)
+
     def isValidCharacter(self, character):
         return character in [';', '[', ']', ':', ',', '{', '}', '>']
 
@@ -42,13 +48,19 @@ class Lexer:
                     # Los espacios en blanco y saltos de línea son ignorados
                 else:
                     print(f'ERROR LÉXICO: {character} ({line}, {column})')
+                    token = {"token": "ERROR LÉXICO", "lexeme": character, "line": line, "column": column}
+                    self.errorTokens.append(token)
             elif status == 1:
                 if character.isalnum():
                     lexeme += character
                     print(f'Estado 1: {lexeme}')
                 else:
                     print(f'Token IDENTIFICADOR: {lexeme} ({line}, {column})')
+                    token = {"token": "IDENTIFICADOR", "lexeme": lexeme, "line": line, "column": column}
+                    self.validTokens.append(token)
                     print(f'ERROR LÉXICO: {character} ({line}, {column})')
+                    token = {"token": "ERROR LÉXICO", "lexeme": character, "line": line, "column": column}
+                    self.errorTokens.append(token)
                     lexeme = ""
                     status = 0
                     continue
