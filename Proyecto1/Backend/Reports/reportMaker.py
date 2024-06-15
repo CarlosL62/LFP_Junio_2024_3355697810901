@@ -69,7 +69,7 @@ class ReportMaker:
                         <td>{}</td>
                         <td>{}</td>
                     </tr>
-                '''.format(token.token, token.lexeme, token.line, token.column))
+                '''.format(token.type.name, token.lexeme, token.line, token.column))
 
             report.write('''
                     </table>
@@ -141,7 +141,7 @@ class ReportMaker:
                         <td>{}</td>
                         <td>{}</td>
                     </tr>
-                '''.format(error.token, error.lexeme, error.line, error.column))
+                '''.format(error.type.name, error.lexeme, error.line, error.column))
 
             report.write('''
                     </table>

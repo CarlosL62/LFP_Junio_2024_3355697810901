@@ -1,0 +1,23 @@
+nombre -> 'Grafos Guatemala'
+nodos -> [
+    'nodoA': 'Nodo 1',
+    'nodoB': 'Nodo 2',
+    'nodoC': 'Nodo 3'
+];
+conexiones -> [
+    'nodoA' > 'nodoB',
+    'nodoA' > 'nodoC'
+];
+
+...
+
+nombre -> 'Grafos Guatemala'
+nodos -> [
+    'nodoA': 'Nodo 1',
+    'nodoB': 'Nodo 2',
+    'nodoC': 'Nodo 3'
+];
+conexiones -> [
+    'nodoA' > 'nodoB',
+    'nodoA' > 'nodoC'
+];

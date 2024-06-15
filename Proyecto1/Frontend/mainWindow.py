@@ -1,30 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
-from Proyecto1.Backend.Lexer.lexer import Lexer
-from Proyecto1.Backend.Reports.reportMaker import ReportMaker
+from Backend.Lexer.lexer import Lexer
+from Backend.Reports.reportMaker import ReportMaker
 
 # global variables
 file = None  # file to be read
 reportMaker = None  # report maker
-
-fileToTry = '''nombre -> 'Grafos Guatemala'
-nodos -> [
-    'nodoA': 'Nodo 1',
-    'nodoB': 'Nodo 2',
-    'nodoC': 'Nodo 3'
-];
-conexiones -> [
-    'nodoA' > 'nodoB',
-    'nodoA' > 'nodoC'
-];'''
-
-
-def escribir():
-    print("Hola, estoy escribiendo")
-
-
-def imprimir(txt):
-    print(txt)
 
 
 def openFile():
@@ -139,5 +120,5 @@ combo_values.append("Opción 4")
 console = tk.Text(main, width=110, height=25)
 console.place(x=50, y=150)
 
-# Mantener ventana abierta
+# keep window open
 main.mainloop()

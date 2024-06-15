@@ -1,6 +1,6 @@
-from Proyecto1.Backend.Lexer.token import Token
-from Proyecto1.Backend.Lexer.error import Error
-
+from Backend.Lexer.token import Token
+from Backend.Lexer.error import Error
+from Backend.Lexer.tokenTypes import TokenTypes
 
 class Lexer:
 
@@ -9,161 +9,138 @@ class Lexer:
         self.validTokens = []
         self.errorTokens = []
 
+    def recognizeSimbols(self, validTokens):
+        for token in validTokens:
+            if token.lexeme == ';':
+                token.type = TokenTypes.SEMICOLON
+            elif token.lexeme == '[':
+                token.type = TokenTypes.LBRAKET
+            elif token.lexeme == ']':
+                token.type = TokenTypes.RBRAKET
+            elif token.lexeme == ':':
+                token.type = TokenTypes.COLON
+            elif token.lexeme == ',':
+                token.type = TokenTypes.COMMA
+            elif token.lexeme == '>':
+                token.type = TokenTypes.GREATER
+
     def isValidCharacter(self, character):
-        return character in [';', '[', ']', ':', ',', '{', '}', '>']
+        return character in [';', '[', ']', ':', ',', '>']
 
     def isWhitespace(self, character):
         return character in [' ', '\t', '\n']
 
-    def recognizeKeyWords(self):
-        keywords = ["nombre", "nodos", "conexiones"]
-        for token in self.validTokens:
-            if token.lexeme in keywords:
-                token.token = "PALABRA_RESERVADA"
+    def add_token(self, type, lexeme, line, start_column, end_column):
+        token = Token(type=type, lexeme=lexeme, line=line, column=start_column)
+        self.validTokens.append(token)
 
-    def recognizeSimbols(self):
-        for token in self.validTokens:
-            if token.lexeme == ";":
-                token.token = "PUNTO_Y_COMA"
-            elif token.lexeme == "[":
-                token.token = "D_CORCHETE"
-            elif token.lexeme == "]":
-                token.token = "I_CORCHETE"
-            elif token.lexeme == ":":
-                token.token = "DOS_PUNTOS"
-            elif token.lexeme == ",":
-                token.token = "COMA"
-            elif token.lexeme == "{":
-                token.token = "D_LLAVE"
-            elif token.lexeme == "}":
-                token.token = "I_LLAVE"
-            elif token.lexeme == ">":
-                token.token = "SEMI_FLECHA"
-
-
+    def add_error(self, lexeme, line, start_column, end_column):
+        error = Error(type=TokenTypes.ERROR, lexeme=lexeme, line=line, column=start_column)
+        self.errorTokens.append(error)
 
     def analyze(self):
         line = 1
         column = 1
         lexeme = ""
         status = 0
+        start_column = 1
 
-        for character in self.textEntry:
+        i = 0
+        while i < len(self.textEntry):
+            character = self.textEntry[i]
             print(f'Procesando carácter: {character} ({line}, {column}), Estado: {status}')
 
             if status == 0:
                 if character.isalpha():
                     lexeme += character
                     status = 1
-                    print(f'Estado 1: {lexeme}')
+                    start_column = column
                 elif character == "-":
                     lexeme += character
                     status = 2
-                    print(f'Estado 2: {lexeme}')
+                    start_column = column
                 elif character == "'":
                     lexeme += character
                     status = 3
-                    print(f'Estado 3: {lexeme}')
+                    start_column = column
                 elif self.isValidCharacter(character):
                     lexeme += character
-                    status = 4
-                    print(f'Estado 4: {lexeme}')
+                    self.add_token(TokenTypes.SIMBOL, lexeme, line, column, column)
+                    lexeme = ""
+                elif character == '.':
+                    lexeme += character
+                    status = 5
+                    start_column = column
                 elif self.isWhitespace(character):
                     if character == '\n':
-                        line += 1
+                        line += 0
                         column = 0
                 else:
-                    error = Error(token="ERROR LÉXICO", lexeme=character, line=line, column=column)
-                    error.__str__()
-                    self.errorTokens.append(error)
+                    self.add_error(character, line, column, column)
             elif status == 1:
                 if character.isalnum():
                     lexeme += character
-                    print(f'Estado 1: {lexeme}')
                 else:
-                    token = Token(token="IDENTIFICADOR", lexeme=lexeme, line=line, column=column)
-                    token.__str__()
-                    self.validTokens.append(token)
+                    if lexeme == "nombre":
+                        self.add_token(TokenTypes.NAME, lexeme, line, start_column, column)
+                    elif lexeme == "nodos":
+                        self.add_token(TokenTypes.NODES, lexeme, line, start_column, column)
+                    elif lexeme == "conexiones":
+                        self.add_token(TokenTypes.CONECTIONS, lexeme, line, start_column, column)
+                    else:
+                        self.add_error(lexeme, line, start_column, column)
                     lexeme = ""
                     status = 0
-                    if not self.isWhitespace(character) and not self.isValidCharacter(character):
-                        error = Error(token="ERROR LÉXICO", lexeme=character, line=line, column=column)
-                        error.__str__()
-                        self.errorTokens.append(error)
                     continue
             elif status == 2:
                 if character == ">":
                     lexeme += character
-                    token = Token(token="FLECHA", lexeme=lexeme, line=line, column=column)
-                    token.__str__()
-                    self.validTokens.append(token)
+                    self.add_token(TokenTypes.ASSIGN, lexeme, line, start_column, column)
                     lexeme = ""
                     status = 0
                 else:
-                    error = Error(token="ERROR LÉXICO", lexeme=lexeme, line=line, column=column)
-                    error.__str__()
-                    self.errorTokens.append(error)
+                    self.add_error(lexeme, line, start_column, column)
                     lexeme = ""
                     status = 0
             elif status == 3:
                 if character == "'":
                     lexeme += character
-                    token = Token(token="CADENA", lexeme=lexeme, line=line, column=column)
-                    token.__str__()
-                    self.validTokens.append(token)
+                    self.add_token(TokenTypes.STRING, lexeme, line, start_column, column)
                     lexeme = ""
                     status = 0
                 else:
                     lexeme += character
-                    print(f'Estado 3: {lexeme}')
-            elif status == 4:
-                token = Token(token="SIMBOLO", lexeme=lexeme, line=line, column=column)
-                token.__str__()
-                self.validTokens.append(token)
-                lexeme = ""
-                status = 0
+            elif status == 5:
+                if character == '.':
+                    lexeme += character
+                    if lexeme == '...':
+                        self.add_token(TokenTypes.DOTDOTDOT, lexeme, line, start_column, column)
+                        lexeme = ""
+                        status = 0
+                else:
+                    self.add_error(lexeme, line, start_column, column)
+                    lexeme = ""
+                    status = 0
 
             if character == '\n':
                 line += 1
-                column = 1
-            else:
-                column += 1
+                column = 0
+            column += 1
+            i += 1
 
         if status == 1:
-            token = Token(token="IDENTIFICADOR", lexeme=lexeme, line=line, column=column)
-            token.__str__()
-            self.validTokens.append(token)
+            if lexeme == "nombre":
+                self.add_token(TokenTypes.NAME, lexeme, line, start_column, column)
+            elif lexeme == "nodos":
+                self.add_token(TokenTypes.NODES, lexeme, line, start_column, column)
+            elif lexeme == "conexiones":
+                self.add_token(TokenTypes.CONECTIONS, lexeme, line, start_column, column)
+            else:
+                self.add_error(lexeme, line, start_column, column)
         elif status == 3:
-            error = Error(token="ERROR LÉXICO", lexeme=lexeme, line=line, column=column)
-            error.__str__()
-            self.errorTokens.append(error)
+            self.add_error(lexeme, line, start_column, column)
 
-        # recognizes keywords and symbols and changes to an appropriate token
-        self.recognizeKeyWords()
-        self.recognizeSimbols()
+        # recognize simbols
+        self.recognizeSimbols(self.validTokens)
+
         print(f'Análisis completado. Último estado: {status}')
-
-
-
-# Ejemplo de uso
-text = '''nombre4 -> 'Grafo Ejemplo'
-nodos -> [
-    'nodoA'dsf: 'Nodo 1',
-    'nodoB': 'Nodo 2',
-    'nodoC': 'Nod4o 3'
-];
-conexiones -> [
-    'nodoA' > 'nodoB',
-    'nodoA' > 'nodfgoC'
-];
-'''
-lexer = Lexer(text)
-lexer.analyze()
-
-print("=====================================")
-print("Tokens válidos:")
-for token in lexer.validTokens:
-    print(token)
-print("Tokens inválidos:")
-for token in lexer.errorTokens:
-    print(token)
