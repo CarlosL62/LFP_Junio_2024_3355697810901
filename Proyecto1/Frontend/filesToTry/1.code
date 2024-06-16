@@ -1,0 +1,12 @@
+nowmbre -> 'titulo';
+nodos ->[
+	'nombre_nodo1': 'texto_nodo1,
+	'nombre_nodo2': 'texto_nodo2',
+	'nombre_nodo3': 'texto_nodo3
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3 > 'nombre_nodo2'}
+];
+

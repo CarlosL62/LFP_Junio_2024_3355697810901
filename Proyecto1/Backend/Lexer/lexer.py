@@ -148,33 +148,3 @@ class Lexer:
         self.recognizeSimbols(self.validTokens)
 
         print(f'Análisis completado. Último estado: {status}')
-
-#ejemplo de prueba
-lx = Lexer('''nombre -> 'Grafos Guatemala'
-nodos -> [
-    'nodoA': 'Nodo 1',
-'nodoB': 'Nodo 2',
-'nodoC': 'Nodo 3'
-];
-conexiones -> [
-    {'nodoA' > 'nodoB'},
-    {'nodoA' > 'nodoC'}
-];
-
-...
-
-nombre -> 'Grafos Guatemala'
-nodos -> [
-    'nodoA': 'Nodo 1',
-'nodoB': 'Nodo 2',
-'nodoC': 'Nodo 3'
-];
-conexiones -> [
-    {'nodoA' > 'nodoB'},
-    {'nodoA' > 'nodoC'}
-];''')
-
-lx.analyze()
-
-for token in lx.validTokens:
-    print(token.__str__())

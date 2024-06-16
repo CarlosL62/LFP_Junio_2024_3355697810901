@@ -12,7 +12,7 @@ class Grapher:
         self.errorTokens = errorTokens
 
     def graphExtraxtor(self):
-        global graph
+        self.graphes.clear()
         print("Extrayendo grafos...")
 
         if self.errorTokens.__len__() > 0:

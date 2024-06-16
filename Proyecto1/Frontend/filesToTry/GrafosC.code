@@ -1,0 +1,39 @@
+nombre -> 'LFP1';
+nodos -> [
+'nombre_nodo1': 'texto_nodo1',
+'nombre_nodo2': 'texto nodo2',
+'nombre_nodo3': 'texto_nodo3'
+];
+conexiones ->[
+{'nombre_nodo1' > 'nombre_nodo2'},
+{'nombre_nodo3' > 'nombre_nodo2'}
+]
+
+...
+
+nombre -> 'El mejor grafo';
+nodos -> [
+  'nodo1': 'Este es el nodo 1',
+  'nodo2': 'Aquí está el nodo 2',
+  'nodo3': 'Este es el nodo 3',
+  'nodo4': 'Texto del nodo 4',
+  'nodo5': 'Descripción del nodo 5',
+  'nodo6': 'Contenido del nodo 6',
+  'nodo7': 'Nodo número 7',
+  'nodo8': 'Texto para el nodo 8',
+  'nodo9': 'Información del nodo 9',
+  'nodo10': 'Descripción del nodo 10'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo1' > 'nodo3'},
+  {'nodo2' > 'nodo4'},
+  {'nodo3' > 'nodo4'},
+  {'nodo3' > 'nodo5'},
+  {'nodo4' > 'nodo6'},
+  {'nodo5' > 'nodo6'},
+  {'nodo6' > 'nodo7'},
+  {'nodo7' > 'nodo8'},
+  {'nodo8' > 'nodo9'},
+  {'nodo9' > 'nodo10'}
+]
