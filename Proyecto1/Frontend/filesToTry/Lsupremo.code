@@ -1,0 +1,176 @@
+nombre -> 'Grafo 1';
+nodos -> [
+  'nodo1': 'Inicio',
+  'nodo2': 'Proceso 1',
+  'nodo3': 'Decisión',
+  'nodo4': 'Proceso 2',
+  'nodo5': 'Fin'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo2' > 'nodo3'},
+  {'nodo3' > 'nodo4'},
+  {'nodo4' > 'nodo5'}
+]
+...
+
+nombre -> 'Grafo 2';
+nodos -> [
+  'nodo1': 'Entrada',
+  'nodo2': 'Validación',
+  'nodo3': 'Aprobación',
+  'nodo4': 'Revisión',
+  'nodo5': 'Ajuste',
+  'nodo6': 'Salida'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo1' > 'nodo3'},
+  {'nodo2' > 'nodo4'},
+  {'nodo3' > 'nodo5'},
+  {'nodo4' > 'nodo6'}
+]
+...
+
+nombre -> 'Grafo 3';
+nodos -> [
+  'nodo1': 'Inicio',
+  'nodo2': 'Cálculo',
+  'nodo3': 'Resultado',
+  'nodo4': 'Fin'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo2' > 'nodo3'},
+  {'nodo3' > 'nodo4'}
+]
+...
+
+nombre -> 'Grafo 4';
+nodos -> [
+  'nodo1': 'Inicio',
+  'nodo2': 'Acción 1',
+  'nodo3': 'Acción 2',
+  'nodo4': 'Acción 3',
+  'nodo5': 'Decisión',
+  'nodo6': 'Acción 4',
+  'nodo7': 'Fin'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo1' > 'nodo3'},
+  {'nodo2' > 'nodo4'},
+  {'nodo2' > 'nodo5'},
+  {'nodo3' > 'nodo6'},
+  {'nodo5' > 'nodo7'}
+]
+...
+
+nombre -> 'Grafo 5';
+nodos -> [
+  'nodo1': 'Origen',
+  'nodo2': 'Destino'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'}
+]
+...
+
+nombre -> 'Grafo 6';
+nodos -> [
+  'nodo1': 'Paso 1',
+  'nodo2': 'Paso 2',
+  'nodo3': 'Paso 3',
+  'nodo4': 'Paso 4',
+  'nodo5': 'Paso 5',
+  'nodo6': 'Paso 6',
+  'nodo7': 'Paso 7',
+  'nodo8': 'Final'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo2' > 'nodo3'},
+  {'nodo3' > 'nodo4'},
+  {'nodo4' > 'nodo5'},
+  {'nodo5' > 'nodo6'},
+  {'nodo6' > 'nodo7'},
+  {'nodo7' > 'nodo8'}
+]
+...
+
+nombre -> 'Grafo 7';
+nodos -> [
+  'nodo1': 'Inicio',
+  'nodo2': 'Evaluación',
+  'nodo3': 'Decisión 1',
+  'nodo4': 'Acción 1',
+  'nodo5': 'Decisión 2',
+  'nodo6': 'Acción 2',
+  'nodo7': 'Fin'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo2' > 'nodo3'},
+  {'nodo2' > 'nodo4'},
+  {'nodo3' > 'nodo5'},
+  {'nodo3' > 'nodo6'},
+  {'nodo5' > 'nodo7'}
+]
+...
+
+nombre -> 'Grafo 8';
+nodos -> [
+  'nodo1': 'Primero',
+  'nodo2': 'Segundo',
+  'nodo3': 'Tercero',
+  'nodo4': 'Cuarto',
+  'nodo5': 'Quinto',
+  'nodo6': 'Sexto'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo2' > 'nodo3'},
+  {'nodo3' > 'nodo4'},
+  {'nodo4' > 'nodo5'},
+  {'nodo5' > 'nodo6'}
+]
+...
+
+nombre -> 'Grafo 9';
+nodos -> [
+  'nodo1': 'A',
+  'nodo2': 'B',
+  'nodo3': 'C',
+  'nodo4': 'D',
+  'nodo5': 'E',
+  'nodo6': 'F',
+  'nodo7': 'G',
+  'nodo8': 'H'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo2' > 'nodo3'},
+  {'nodo3' > 'nodo4'},
+  {'nodo4' > 'nodo5'},
+  {'nodo5' > 'nodo6'},
+  {'nodo6' > 'nodo7'},
+  {'nodo7' > 'nodo8'}
+]
+...
+
+nombre -> 'Grafo 10';
+nodos -> [
+  'nodo1': 'Nodo A',
+  'nodo2': 'Nodo B',
+  'nodo3': 'Nodo C',
+  'nodo4': 'Nodo D',
+  'nodo5': 'Nodo E',
+  'nodo6': 'Nodo F'
+];
+conexiones -> [
+  {'nodo1' > 'nodo2'},
+  {'nodo2' > 'nodo3'},
+  {'nodo3' > 'nodo4'},
+  {'nodo4' > 'nodo5'},
+  {'nodo5' > 'nodo6'}
+]

@@ -1,0 +1,137 @@
+nombre -> 'uno';
+nodos ->[
+	'nombre_nodo1': 'n1.1',
+	'nombre_nodo2': 'n1.2',
+	'nombre_nodo3': 'n1s'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...	
+
+nombre -> 'dos';
+nodos ->[
+	'nombre_nodo1': 'n2.1',
+	'nombre_nodo2': 'n2.2',
+	'nombre_nodo3': 'n2s'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...
+
+nombre -> 'tres';
+nodos ->[
+	'nombre_nodo1': 'n3.1',
+	'nombre_nodo2': 'n3.2',
+	'nombre_nodo3': 'ns'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...
+
+nombre -> 'cuatro';
+nodos ->[
+	'nombre_nodo1': 'n4.1',
+	'nombre_nodo2': 'n4.2',
+	'nombre_nodo3': 'n4s'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...
+
+nombre -> 'cinco';
+nodos ->[
+	'nombre_nodo1': 'n5.1',
+	'nombre_nodo2': 'n5.2',
+	'nombre_nodo3': 'ns'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...
+
+nombre -> 'seis';
+nodos ->[
+	'nombre_nodo1': 'n1.1',
+	'nombre_nodo2': 'n1.2',
+	'nombre_nodo3': 'n1s'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...	
+
+nombre -> 'siete';
+nodos ->[
+	'nombre_nodo1': 'n2.1',
+	'nombre_nodo2': 'n2.2',
+	'nombre_nodo3': 'n2s'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...
+
+nombre -> 'ocho';
+nodos ->[
+	'nombre_nodo1': 'n3.1',
+	'nombre_nodo2': 'n3.2',
+	'nombre_nodo3': 'ns'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...
+
+nombre -> 'nueve';
+nodos ->[
+	'nombre_nodo1': 'n4.1',
+	'nombre_nodo2': 'n4.2',
+	'nombre_nodo3': 'n4s'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
+
+...
+
+nombre -> 'diez';
+nodos ->[
+	'nombre_nodo1': 'n5.1',
+	'nombre_nodo2': 'n5.2',
+	'nombre_nodo3': 'ns'
+];
+
+conexiones ->[
+	{'nombre_nodo1' > 'nombre_nodo2'},
+	{'nombre_nodo3' > 'nombre_nodo2'}
+];
