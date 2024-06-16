@@ -14,6 +14,8 @@ class TokenTypes(Enum):
     # delimiters
     LBRAKET = auto()  # [
     RBRAKET = auto()  # ]
+    LBRACE = auto()  # {
+    RBRACE = auto()  # }
     SEMICOLON = auto()  # ;
     COMMA = auto()  # ,
     DOTDOTDOT = auto()  # ...

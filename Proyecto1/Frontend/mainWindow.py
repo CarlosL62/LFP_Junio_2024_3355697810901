@@ -1,11 +1,14 @@
 import tkinter as tk
-from tkinter import ttk, filedialog
+from tkinter import ttk, filedialog, messagebox
 from Backend.Lexer.lexer import Lexer
 from Backend.Reports.reportMaker import ReportMaker
+from Backend.Graphs.grapher import Grapher
 
 # global variables
 file = None  # file to be read
+lx = None  # lexer
 reportMaker = None  # report maker
+grapher = None  # grapher
 
 
 def openFile():
@@ -22,21 +25,52 @@ def openFile():
         with open(path, "r", encoding="utf-8") as f:
             file = f.read()
             print(file)
+            messagebox.showinfo("Archivo seleccionado", "Archivo seleccionado correctamente")
     else:
         print("No se seleccionó ningún archivo")
+        messagebox.showerror("Error", "No se seleccionó ningún archivo")
 
 
 def executeFile():
     print("Ejecutando archivo")
-    global file, reportMaker
+    global file, lx, reportMaker, grapher
     if file is not None:
         lx = Lexer(file)
         lx.analyze()
         reportMaker = ReportMaker(lx.validTokens, lx.errorTokens)
-        print("Archivo ejecutado y reportes generados")
+
+        grapher = Grapher(lx.validTokens, lx.errorTokens)
+        grapher.graphExtraxtor()
+        generateCombo(grapher.graphes)
+
+        print("Archivo ejecutado, reportes y grafos generados")
+        messagebox.showinfo("Archivo ejecutado", "Archivo ejecutado y reportes generados")
+        generateGraph(0)
     else:
         print("No se seleccionó ningún archivo")
+        messagebox.showerror("Error", "No se seleccionó ningún archivo")
 
+
+combo = None
+def generateCombo(graphs):
+    global combo
+    combo_values = []
+    for graph in graphs:
+        combo_values.append(graph.name)
+    print(combo_values)
+    combo = ttk.Combobox(main, values=combo_values)
+    combo.set("Selecciona una imagen")  # value by default
+    combo.place(x=600, y=100)
+
+def generateGraph(index):
+    global grapher
+    if grapher is not None:
+        grapher.generateGraph(index)
+        print(f"Grafo {index} generado")
+        messagebox.showinfo("Grafo generado", "Grafo generado")
+    else:
+        print("No se ha ejecutado el análisis de archivo")
+        messagebox.showerror("Error", "No se ha ejecutado el análisis de archivo")
 
 def generateTokensReport():
     global reportMaker
@@ -49,10 +83,13 @@ def generateTokensReport():
         if save_path:
             reportMaker.makeReportTokens(save_path)
             print("Reporte de tokens generado")
+            messagebox.showinfo("Reporte generado", "Reporte de tokens generado")
         else:
             print("No se seleccionó ninguna ruta")
+            messagebox.showerror("Error", "No se seleccionó ninguna ruta")
     else:
         print("No se ha ejecutado el análisis de archivo")
+        messagebox.showerror("Error", "No se ha ejecutado el análisis de archivo")
 
 
 def generateErrorsReport():
@@ -66,10 +103,13 @@ def generateErrorsReport():
         if save_path:
             reportMaker.makeReportErrors(save_path)
             print("Reporte de errores generado")
+            messagebox.showinfo("Reporte generado", "Reporte de errores generado")
         else:
             print("No se seleccionó ninguna ruta")
+            messagebox.showerror("Error", "No se seleccionó ninguna ruta")
     else:
         print("No se ha ejecutado el análisis de archivo")
+        messagebox.showerror("Error", "No se ha ejecutado el análisis de archivo")
 
 
 # mainWindow
@@ -108,13 +148,6 @@ btnTokensReport = ttk.Button(main, text="Reporte de tokens", command=generateTok
 btnTokensReport.place(x=100, y=100)
 btnErrorsReport = ttk.Button(main, text="Reporte de errores", command=generateErrorsReport)
 btnErrorsReport.place(x=250, y=100)
-
-# images selection
-combo_values = ["Opción 1", "Opción 2", "Opción 3"]
-combo = ttk.Combobox(main, values=combo_values)
-combo.set("Selecciona una imagen")  # value by default
-combo.place(x=600, y=100)
-combo_values.append("Opción 4")
 
 # option for graph
 console = tk.Text(main, width=110, height=25)

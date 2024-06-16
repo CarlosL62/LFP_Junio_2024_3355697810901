@@ -17,6 +17,10 @@ class Lexer:
                 token.type = TokenTypes.LBRAKET
             elif token.lexeme == ']':
                 token.type = TokenTypes.RBRAKET
+            elif token.lexeme == '{':
+                token.type = TokenTypes.LBRACE
+            elif token.lexeme == '}':
+                token.type = TokenTypes.RBRACE
             elif token.lexeme == ':':
                 token.type = TokenTypes.COLON
             elif token.lexeme == ',':
@@ -25,7 +29,7 @@ class Lexer:
                 token.type = TokenTypes.GREATER
 
     def isValidCharacter(self, character):
-        return character in [';', '[', ']', ':', ',', '>']
+        return character in [';', '[', ']', '{', '}', ':', ',', '>']
 
     def isWhitespace(self, character):
         return character in [' ', '\t', '\n']
@@ -144,3 +148,33 @@ class Lexer:
         self.recognizeSimbols(self.validTokens)
 
         print(f'Análisis completado. Último estado: {status}')
+
+#ejemplo de prueba
+lx = Lexer('''nombre -> 'Grafos Guatemala'
+nodos -> [
+    'nodoA': 'Nodo 1',
+'nodoB': 'Nodo 2',
+'nodoC': 'Nodo 3'
+];
+conexiones -> [
+    {'nodoA' > 'nodoB'},
+    {'nodoA' > 'nodoC'}
+];
+
+...
+
+nombre -> 'Grafos Guatemala'
+nodos -> [
+    'nodoA': 'Nodo 1',
+'nodoB': 'Nodo 2',
+'nodoC': 'Nodo 3'
+];
+conexiones -> [
+    {'nodoA' > 'nodoB'},
+    {'nodoA' > 'nodoC'}
+];''')
+
+lx.analyze()
+
+for token in lx.validTokens:
+    print(token.__str__())
