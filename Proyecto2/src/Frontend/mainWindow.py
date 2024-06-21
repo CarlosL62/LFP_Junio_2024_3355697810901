@@ -1,44 +1,59 @@
 import tkinter as tk
 
-
 class MainWindow:
-
     def __init__(self):
-
-        # Window
-        self.window = tk.Tk()  # Create window
-        self.window.title("Digitalizador de información")  # Set title
+        self.window = tk.Tk()
+        self.window.title("Digitalizador de información")
         WIDTH_WINDOW = 1000
-        HEIGTH_WINDOW = 600
+        HEIGHT_WINDOW = 600
         WINDOW_X = self.window.winfo_screenwidth() // 2 - WIDTH_WINDOW // 2
-        WINDOW_Y = self.window.winfo_screenheight() // 2 - HEIGTH_WINDOW // 2
-        self.window.geometry(f"{WIDTH_WINDOW}x{HEIGTH_WINDOW}+{WINDOW_X}+{WINDOW_Y}") # Set size and position
-        self.window.resizable(False, False)  # No resizable
+        WINDOW_Y = self.window.winfo_screenheight() // 2 - HEIGHT_WINDOW // 2
+        self.window.geometry(f"{WIDTH_WINDOW}x{HEIGHT_WINDOW}+{WINDOW_X}+{WINDOW_Y}")
+        self.window.resizable(False, False)
+        self.window.configure(bg="lightgray")
 
-        # Elements
-        self.label = tk.Label(self.window, text="Digitalizador de información")
+        # Title
+        self.label = tk.Label(self.window, text="Digitalizador de información", font=("Roboto", 24, "bold"), bg="lightgray", fg="black")
         self.label.pack()
-        self.create_menu()
 
-        self.window.mainloop()  # Keep window open
-
-    def create_menu(self):
-        menu_bar = tk.Menu(self.window)  # Create menu bar
+        # Menu
+        menu_bar = tk.Menu(self.window)
+        menu_bar.configure(bg="lightgray", fg="black", font=("Roboto", 12))
         # Files menu
         file_menu = tk.Menu(menu_bar, tearoff=0)
-        file_menu.add_command(label="Abrir", command=self.open_file)
-        file_menu.add_command(label="Guardar", command=self.save_file)
-        file_menu.add_command(label="Guardar como", command=self.save_as_file)
+        file_menu.add_command(label="Abrir", command=self.open_file, font=("Roboto", 12))
+        file_menu.add_command(label="Guardar", command=self.save_file, font=("Roboto", 12))
+        file_menu.add_command(label="Guardar como", command=self.save_as_file, font=("Roboto", 12))
         # Reports menu
         reports_menu = tk.Menu(menu_bar, tearoff=0)
-        reports_menu.add_command(label="Tokens", command=self.generate_tokens_report)
-        reports_menu.add_command(label="Errores", command=self.generate_errors_report)
-        reports_menu.add_command(label="Árbol de derivación", command=self.generate_derivation_tree_report)
+        reports_menu.add_command(label="Tokens", command=self.generate_tokens_report, font=("Roboto", 12))
+        reports_menu.add_command(label="Errores", command=self.generate_errors_report, font=("Roboto", 12))
+        reports_menu.add_command(label="Árbol de derivación", command=self.generate_derivation_tree_report, font=("Roboto", 12))
         # Add menus to menu bar
         menu_bar.add_cascade(label="Archivo", menu=file_menu)
         menu_bar.add_cascade(label="Reportes", menu=reports_menu)
         # Set menu bar
         self.window.config(menu=menu_bar)
+
+        # Frame to contain the text editor
+        self.text_editor_frame = tk.Frame(self.window, bg="white")
+        self.text_editor_frame.pack(pady=20, fill=tk.BOTH, expand=True)
+
+        # Text editor
+        self.text_editor = tk.Text(self.text_editor_frame, font=("Ubuntu Condensed", 16, "italic"), wrap=tk.WORD, height=12, width=40, bg="black", fg="white", insertbackground="white", insertwidth=2)
+        self.text_editor.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self.text_editor.focus()
+
+        # Create a scrollbar and attach it to the text editor
+        scrollbar = tk.Scrollbar(self.text_editor_frame, orient=tk.VERTICAL, command=self.text_editor.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.text_editor.config(yscrollcommand=scrollbar.set)
+
+        # Button to execute the code
+        self.execute_button = tk.Button(self.window, text="Ejecutar", command=self.execute_code, font=("Roboto", 16))
+        self.execute_button.pack(side=tk.BOTTOM, pady=20)
+
+        self.window.mainloop()
 
     def open_file(self):
         pass
@@ -56,4 +71,7 @@ class MainWindow:
         pass
 
     def generate_derivation_tree_report(self):
+        pass
+
+    def execute_code(self):
         pass
