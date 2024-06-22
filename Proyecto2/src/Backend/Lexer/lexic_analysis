@@ -1,0 +1,76 @@
+######### LANGUAGE EXAMPLE #########
+
+// Editor de código fuente
+
+// Comentario de una línea
+
+/*
+Comentario
+multilínea
+*/
+
+Array miArray = new Array[15, 80, 68, 55, 48];
+miArray.sort(asc=FALSE);
+miArray.save("ruta/del/archivo.csv");
+
+######### TOKENS #########
+
+Note: // and /* */ are comments, so they are not tokens and are not included in the list.
+
+Identified tokens
+
+NAME              | REGEX
+------------------|---------------------------------
+TK_IDENTIFIER     | [a-zA-Z][a-zA-Z0-9_]*
+TK_NEW            | new
+TK_ARRAY          | Array
+TK_SORT           | sort
+TK_SAVE           | save
+TK_ASC            | asc
+TK_TRUE           | TRUE
+TK_FALSE          | FALSE
+TK_EQUAL          | =
+TK_COMMA          | ,
+TK_DOT            | \.
+TK_SEMICOLON      | ;
+TK_LPARENTHESIS   | \(
+TK_RPARENTHESIS   | \)
+TK_LBRACKET       | \[
+TK_RBRACKET       | \]
+TK_NUMBER         | [0-9]+(\.[0-9]+)?
+TK_STRING         | "[^"\n]*"
+
+Reserved words are case sensitive and must be written correctly.
+The regex that will define them will be [a-zA-Z][a-zA-Z0-9_]* and then classified according to the reserved word.
+For symbols, the regex will be the symbol itself, but will be recognized as a TK_SYMBOL first, the classification will be done later.
+
+Simplefied tokens
+
+NAME              | REGEX
+------------------|---------------------------------
+TK_IDENTIFIER     | [a-zA-Z][a-zA-Z0-9_]*
+TK_NEW            |
+TK_ARRAY          |
+TK_SORT           |
+TK_SAVE           |
+TK_ASC            |
+TK_TRUE           |
+TK_FALSE          |
+------------------|---------------------------------
+TK_EQUAL          | =
+TK_COMMA          | ,
+TK_DOT            | \.
+TK_SEMICOLON      | ;
+TK_LPARENTHESIS   | \(
+TK_RPARENTHESIS   | \)
+TK_LBRACKET       | \[
+TK_RBRACKET       | \]
+------------------|---------------------------------
+TK_NUMBER         | [0-9]+(\.[0-9]+)?
+TK_STRING         | "[^"\n]*?"
+
+REGEX for the production of the tokens
+
+[a-zA-Z][a-zA-Z0-9_]*|=|,|\.|\(|\)|\[|\]|"[^"\n]*"|[0-9]+(\.[0-9]+)?
+
+The process of the construction of the AFD is done at the technical manual.
