@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from src.Backend.Files.file import File
+from src.Backend.Reports.report_maker import ReportMaker
+
 
 class MainWindow:
     def __init__(self):
@@ -103,13 +105,31 @@ class MainWindow:
         file_to_save.save_as_file(save_path)
 
     def generate_tokens_report(self):
-        pass
+        save_path = tk.filedialog.asksaveasfilename(
+            title="Guardar archivo como",
+            defaultextension=".html",
+            filetypes=[
+                ("Archivos de entrada", "*.html")
+            ]
+        )
 
     def generate_errors_report(self):
-        pass
+        save_path = tk.filedialog.asksaveasfilename(
+            title="Guardar archivo como",
+            defaultextension=".lfp",
+            filetypes=[
+                ("Archivos de entrada", "*.html")
+            ]
+        )
 
     def generate_derivation_tree_report(self):
-        pass
+        save_path = tk.filedialog.asksaveasfilename(
+            title="Guardar archivo como",
+            defaultextension=".html",
+            filetypes=[
+                ("Archivos de entrada", "*.html")
+            ]
+        )
 
     def execute_code(self):
         pass
