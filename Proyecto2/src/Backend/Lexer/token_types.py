@@ -25,3 +25,4 @@ class TokenTypes(Enum):
     TK_STRING = auto()
 
     TK_ERROR = auto()
+    TK_EOF = auto()

@@ -1,6 +1,7 @@
 from src.Backend.Lexer.token import Token
 from src.Backend.Lexer.token_types import TokenTypes
 
+
 class Lexer:
     def __init__(self, text_entry):
         self.text_entry = text_entry
