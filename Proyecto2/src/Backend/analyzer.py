@@ -23,8 +23,9 @@ class Analyzer:
         if not lexic_errors_found:
             self.analyze_syntax()
             print("**********************************")
+            print("Syntax analysis completed")
             if len(self.syntax_errors) == 0:
-                print("Syntax analysis completed successfully")
+                print("No syntax errors found")
             else:
                 print("Syntax errors found:")
                 for error in self.syntax_errors:
@@ -44,7 +45,7 @@ class Analyzer:
         self.syntax_errors = parser.syntax_errors
 
 #Example of use
-analyzer = Analyzer('''//Editor de código fuente
+content1 = ('''//Editor de código fuente
 
 //Comentario de una línea
 
@@ -53,8 +54,32 @@ Comentario
 multilínea
 */
 
-Array miArray new Array[15, 80, 68, 55, 48];
-miArray.sort(asc=FALSE);
-miArray.save("ruta/del/archivo.csv");
+Array miArray1 = new Array[15, 80, 68, 55, 48];
+Array miArray2 = new Array["hola", "mundo", "cruel"];
+Array miArray3 = new Array["uno", 2, "tres", 4, "cinco"];
+miArray1.sort(asc=FALSE);
+miArray1.save("ruta/del/archivo.csv");
+Array miArray4 = new Array[15, 80, 68, 55, 48];
+Array miArray5 = new Array["hola", "mundo", "cruel"];
+Array miArray6 = new Array["uno", 2, "tres", 4, "cinco"];
+miArray2.sort(asc=TRUE);
+miArray5.save("ruta/del/archivo.csv");
 ''')
+
+content2 = """Array Prueb_a = new Array [ 15, 80, 68, 55, 48.13, 12.25 ];
+Array Prueba_2 = new Array [ "hola", "mundo", "como", "estas" ];
+
+miArray.save("ruta/del/archivo/csv");
+
+miArray2.sort(asc=FALSE);
+miArray2.save("ruta/del/archivo/csv");
+
+Array Prueba3 = new Array [ 15, 80, 68, 55, 48.13, 12.25 ];
+miArray3.sort(asc=TRUE);
+miArray3.save("ruta/del/archivo/csv");
+
+Array Prueba4 = new Array [ "12", "mundo", "como", "estas" ];
+miArray4.save("ruta/del/archivo/csv");
+"""
+analyzer = Analyzer(content2)
 analyzer.analyze()
