@@ -3,8 +3,9 @@ from src.Backend.Files.file import File
 
 class ReportMaker:
 
-    def __init__(self, tokens):
-        self.tokens = tokens
+    def __init__(self):
+        self.tokens = []
+        self.syntax_errors = []
 
     file_manager = File()
 
@@ -99,39 +100,58 @@ class ReportMaker:
                         margin: 0;
                         padding: 0;
                     }
-
+    
                     h1 {
                         color: #333;
                         text-align: center;
                     }
-
+                    
+                    h2 {
+                        color: #333;
+                        text-align: center;
+                    }
+    
                     table {
                         width: 80%;
                         margin: 20px auto;
                         border-collapse: collapse;
                     }
-
+    
                     th, td {
                         border: 1px solid #ddd;
                         padding: 8px;
                         text-align: left;
                     }
-
+    
                     th {
                         background-color: #f2f2f2;
                     }
-
+    
                     tr:nth-child(even) {
                         background-color: #f2f2f2;
                     }
-
+    
                     tr:hover {
                         background-color: #ddd;
+                    }
+    
+                    ul {
+                        list-style-type: none;
+                        padding: 0;
+                        margin: 0;
+                        text-align: center;
+                    }
+    
+                    li {
+                        padding: 8px;
+                        border: 1px solid #ddd;
+                        margin-bottom: 10px;
                     }
                 </style>
             </head>
             <body>
                 <h1>Reporte de Errores</h1>
+                <h2>Reporte de Errores Léxicos</h2>
                 <table>
                     <tr>
                         <th>Lexema</th>
@@ -152,6 +172,17 @@ class ReportMaker:
 
         self.file_manager.content += ('''
                     </table>
+                    <h2>Errores Sintácticos</h2>
+                    <ul>
+        ''')
+
+        for error in self.syntax_errors:
+            self.file_manager.content += ('''
+                <li>{}</li>
+            '''.format(error))
+
+        self.file_manager.content += ('''
+                    </ul>
                 </body>
                 </html>
             ''')

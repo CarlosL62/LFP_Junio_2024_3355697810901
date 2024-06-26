@@ -3,6 +3,7 @@ from src.Backend.Parser.parser import Parser
 from src.Backend.Lexer.token_types import TokenTypes
 from src.Backend.Parser.declaration import Declaration
 from src.Backend.Files.file import File
+from tkinter import messagebox
 
 
 class Analyzer:
@@ -10,12 +11,14 @@ class Analyzer:
     def __init__(self, text_entry):
         self.text_entry = text_entry
         self.tokens = []
+        self.tokens_bkp = []
         self.syntax_errors = []
         self.statements = []
 
     def analyze(self):
         lexic_errors_found = False
         self.analyze_tokens()
+        self.tokens_bkp = self.tokens.copy()
         print("**********************************")
         print("Tokens found:")
         for token in self.tokens:
@@ -37,11 +40,14 @@ class Analyzer:
             for error in self.syntax_errors:
                 print(error)
         print("**********************************")
-        if lexic_errors_found or len(self.syntax_errors) > 0:
-            print("Analysis completed with errors")
+        if lexic_errors_found and len(self.syntax_errors) > 0:
+            messagebox.showerror("Error", "Se encontraron errores léxicos y sintácticos" + "\n" + "Genera el reporte de errores para más información")
+        elif lexic_errors_found:
+            messagebox.showerror("Error", "Se encontraron errores léxicos" + "\n" + "Genera el reporte de errores para más información")
+        elif len(self.syntax_errors) > 0:
+            messagebox.showerror("Error", "Se encontraron errores sintácticos" + "\n" + "Genera el reporte de errores para más información")
         else:
-            # If no errors are found, the analysis is considered successful and the instructions are executed
-            print("Analysis completed successfully")
+            messagebox.showinfo("Éxito", "Análisis completado con éxito")
             self.execute_statements()
 
 
@@ -110,6 +116,8 @@ class Analyzer:
                         for value in declaration.values:
                             file_manager.content += f'{value}\n'
                         file_manager.save_as_file(statement.route.lexeme.replace('"', ''))
+        # Clean the list of statements
+        self.statements = []
 
     def sort_elements(self, elements, asc):
         if asc == 'TRUE':

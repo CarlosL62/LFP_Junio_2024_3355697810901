@@ -106,22 +106,35 @@ class MainWindow:
         file_to_save.save_as_file(save_path)
 
     def generate_tokens_report(self):
-        save_path = tk.filedialog.asksaveasfilename(
-            title="Guardar archivo como",
-            defaultextension=".html",
-            filetypes=[
-                ("Archivos de entrada", "*.html")
-            ]
-        )
+        if self.analyzer is not None:
+            save_path = tk.filedialog.asksaveasfilename(
+                title="Guardar archivo como",
+                defaultextension=".html",
+                filetypes=[
+                    ("Archivos de entrada", "*.html")
+                ]
+            )
+            report_maker = ReportMaker()
+            report_maker.tokens = self.analyzer.tokens_bkp
+            report_maker.make_report_tokens(save_path)
+        else:
+            messagebox.showerror("Error", "No se ha realizado un análisis del código")
 
     def generate_errors_report(self):
-        save_path = tk.filedialog.asksaveasfilename(
-            title="Guardar archivo como",
-            defaultextension=".lfp",
-            filetypes=[
-                ("Archivos de entrada", "*.html")
-            ]
-        )
+        if self.analyzer is not None:
+            save_path = tk.filedialog.asksaveasfilename(
+                title="Guardar archivo como",
+                defaultextension=".html",
+                filetypes=[
+                    ("Archivos de entrada", "*.html")
+                ]
+            )
+            report_maker = ReportMaker()
+            report_maker.tokens = self.analyzer.tokens_bkp
+            report_maker.syntax_errors = self.analyzer.syntax_errors
+            report_maker.make_report_errors(save_path)
+        else:
+            messagebox.showerror("Error", "No se ha realizado un análisis del código")
 
     def generate_derivation_tree_report(self):
         save_path = tk.filedialog.asksaveasfilename(
@@ -132,20 +145,15 @@ class MainWindow:
             ]
         )
 
+    analyzer = None
+
     def execute_code(self):
         if self.selected_file is not None:
             self.selected_file.content = self.text_editor.get(1.0, tk.END)
             if self.selected_file.content == "":
                 messagebox.showerror("Error", "El archivo seleccionado está vacío")
             else:
-                analyzer = Analyzer(self.selected_file.content)
-                analyzer.analyze()
+                self.analyzer = Analyzer(self.selected_file.content)
+                self.analyzer.analyze()
         else:
             messagebox.showerror("Error", "No hay un archivo seleccionado")
-
-        if self.selected_file is None:
-            messagebox.showerror("Error", "No hay un archivo seleccionado")
-        else:
-            content_to_execute = self.text_editor.get(1.0, tk.END)
-            analyzer = Analyzer(content_to_execute)
-            analyzer.analyze()
