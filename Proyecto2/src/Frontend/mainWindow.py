@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from src.Backend.Files.file import File
+from src.Backend.analyzer import Analyzer
 from src.Backend.Reports.report_maker import ReportMaker
 
 
@@ -132,4 +133,19 @@ class MainWindow:
         )
 
     def execute_code(self):
-        pass
+        if self.selected_file is not None:
+            self.selected_file.content = self.text_editor.get(1.0, tk.END)
+            if self.selected_file.content == "":
+                messagebox.showerror("Error", "El archivo seleccionado está vacío")
+            else:
+                analyzer = Analyzer(self.selected_file.content)
+                analyzer.analyze()
+        else:
+            messagebox.showerror("Error", "No hay un archivo seleccionado")
+
+        if self.selected_file is None:
+            messagebox.showerror("Error", "No hay un archivo seleccionado")
+        else:
+            content_to_execute = self.text_editor.get(1.0, tk.END)
+            analyzer = Analyzer(content_to_execute)
+            analyzer.analyze()

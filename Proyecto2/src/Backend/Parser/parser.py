@@ -123,9 +123,7 @@ class Parser:
     #<function_call> ::= TK_IDENTIFIER TK_DOT <function> TK_SEMICOLON
     def function_call(self):
         if self.tokens[0].type == TokenTypes.TK_IDENTIFIER:
-            identifier = self.tokens.pop(0)
-            self.sort_function_declared.identifier = identifier
-            self.save_function_declared.identifier = identifier
+            self.identifier = self.tokens.pop(0)
             if self.tokens[0].type == TokenTypes.TK_DOT:
                 self.tokens.pop(0)
                 function_accepted = self.function()
@@ -153,14 +151,20 @@ class Parser:
 
     SORT_FUNCTION = 1
     SAVE_FUNCTION = 2
+    identifier = None
+
     #<function> ::= <sort_function>
     #        | <save_function>
     def function(self):
         if self.tokens[0].type == TokenTypes.TK_SORT:
+            self.sort_function_declared = SortFunction()
+            self.sort_function_declared.identifier = self.identifier
             sort_function_correct = self.sort_function()
             if sort_function_correct:
                 return self.SORT_FUNCTION
         elif self.tokens[0].type == TokenTypes.TK_SAVE:
+            self.save_function_declared = SaveFunction()
+            self.save_function_declared.identifier = self.identifier
             save_function_correct = False
             save_function_correct = self.save_function()
             if save_function_correct:

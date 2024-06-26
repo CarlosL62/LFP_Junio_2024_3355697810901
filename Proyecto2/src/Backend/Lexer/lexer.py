@@ -188,24 +188,3 @@ class Lexer:
         # Recognize keywords and update token types
         self.recognize_keywords()
         print(f'Análisis léxico finalizado. {len(self.tokens)} tokens encontrados.')
-
-
-# Ejemplo de uso
-lexer = Lexer('''//Editor de código fuente
-
-//Comentario de una línea
-
-/*
-Comentario
-multilínea
-*/
-
-Array miArray = new Array[15, 80, 68, 55, 48];
-miArray.sort(asc=FALSE);
-miArray.save("ruta/del/archivo.csv");
-''')
-lexer.analyze()
-print('######################################')
-print('Tokens encontrados:')
-for token in lexer.tokens:
-    print(token)
