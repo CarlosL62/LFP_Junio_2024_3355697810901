@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from src.Backend.Files.file import File
+from src.Backend.Lexer.token_types import TokenTypes
 from src.Backend.analyzer import Analyzer
 from src.Backend.Reports.report_maker import ReportMaker
 
@@ -137,18 +138,30 @@ class MainWindow:
             messagebox.showerror("Error", "No se ha realizado un análisis del código")
 
     def generate_derivation_tree_report(self):
-        save_path = tk.filedialog.asksaveasfilename(
-            title="Guardar archivo como",
-            defaultextension=".html",
-            filetypes=[
-                ("Archivos de entrada", "*.html")
-            ]
-        )
+        if self.analyzer is not None:
+            save_path = tk.filedialog.asksaveasfilename(
+                title="Guardar archivo como",
+                defaultextension=".svg",
+                filetypes=[
+                    ("Archivos de entrada", "*.svg")
+                ]
+            )
+            report_maker = ReportMaker()
+            lexic_errors_found = False
+            for token in self.analyzer.tokens_bkp:
+                if token.type == TokenTypes.TK_ERROR:
+                    lexic_errors_found = True
+                    break
+            if lexic_errors_found and len(self.analyzer.syntax_errors) > 0:
+                messagebox.showerror("Error", "Se encontraron errores léxicos y/o sintácticos" + "\n" + "Genera el reporte de errores para más información")
+                return
+            report_maker.make_report_derivation_tree(save_path, self.analyzer.statements)
 
     analyzer = None
 
     def execute_code(self):
         if self.selected_file is not None:
+            self.selected_file.content = None
             self.selected_file.content = self.text_editor.get(1.0, tk.END)
             if self.selected_file.content == "":
                 messagebox.showerror("Error", "El archivo seleccionado está vacío")

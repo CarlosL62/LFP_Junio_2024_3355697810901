@@ -188,3 +188,8 @@ class ReportMaker:
             ''')
 
         self.file_manager.save_as_file(path)
+
+    def make_report_derivation_tree(self, path, statements):
+        # Verifying if a list of statements is received
+        print("Making report")
+        print(statements)

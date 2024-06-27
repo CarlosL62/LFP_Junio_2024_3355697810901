@@ -9,17 +9,19 @@ class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
         self.syntax_errors = []
+        # Symbol table
+        # This will be used to store the variables declared in the program and the functions called
+        self.symbol_table = []
         # Token fin de entrada
         self.tokens.append(Token(TokenTypes.TK_EOF, '$', -1, -1))
-
-    # Symbol table
-    # This will be used to store the variables declared in the program and the functions called
-    symbol_table = []
 
     def parse(self):
         self.program()
         if len(self.tokens) > 0:
             self.syntax_errors.append(f"Syntax error: Unconsumed tokens at end of parsing.")
+        print('FROM PARSER AT PARSE | SYMBOL_TABLE CONTENT********************************************************')
+        for entry in self.symbol_table:
+            print(entry)
 
     #<program> ::= <statements>
     def program(self):

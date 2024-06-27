@@ -50,7 +50,6 @@ class Analyzer:
             messagebox.showinfo("Éxito", "Análisis completado con éxito")
             self.execute_statements()
 
-
     def analyze_tokens(self):
         lexer = Lexer(self.text_entry)
         lexer.analyze()
@@ -59,7 +58,6 @@ class Analyzer:
     def analyze_syntax(self):
         parser = Parser(self.tokens)
         parser.parse()
-        self.statements = []
         self.statements = parser.symbol_table
         self.syntax_errors = parser.syntax_errors
 
@@ -116,8 +114,6 @@ class Analyzer:
                         for value in declaration.values:
                             file_manager.content += f'{value}\n'
                         file_manager.save_as_file(statement.route.lexeme.replace('"', ''))
-        # Clean the list of statements
-        self.statements = []
 
     def sort_elements(self, elements, asc):
         n = len(elements)
