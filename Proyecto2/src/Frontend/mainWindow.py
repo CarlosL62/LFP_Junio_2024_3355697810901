@@ -156,6 +156,8 @@ class MainWindow:
                 messagebox.showerror("Error", "Se encontraron errores léxicos y/o sintácticos" + "\n" + "Genera el reporte de errores para más información")
                 return
             report_maker.make_report_derivation_tree(save_path, self.analyzer.statements)
+        else:
+            messagebox.showerror("Error", "No se ha realizado un análisis del código")
 
     analyzer = None
 
