@@ -1,0 +1,23 @@
+// Editor de código fuente
+
+// Comento de una linea
+
+/*
+Comentario multilinea
+*/
+
+Matriz miArray = nueva matriz [15, 80, 68, 55, 48];
+
+Matriz miArray_1 = nueva matriz ["aa", "sede", "sadd", "hello", "a"];
+
+miArray.save("ruto/del/archivo/csv")
+miArray.sort(asc=FALSE);
+miArray.save("ruto/del/archivo/csv")
+
+
+miArray_1.save("ruto/del/archivo/csv")
+miArray_1.sort(asc=FALSE);
+
+miArray_1.save("ruto/del/archivo/csv")
+miArray.sort(asc=TRUE);
+miArray.save("ruto/del/archivo/csv")

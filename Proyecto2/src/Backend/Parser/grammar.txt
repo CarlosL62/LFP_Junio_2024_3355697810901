@@ -1,0 +1,47 @@
+######### LANGUAGE EXAMPLE #########
+
+// Editor de código fuente
+
+// Comentario de una línea
+
+/*
+Comentario
+multilínea
+*/
+
+Array miArray = new Array[15, 80, 68, 55, 48];
+miArray.sort(asc=FALSE);
+miArray.save("ruta/del/archivo.csv");
+
+######### GRAMMAR #########
+
+Terminal: TK_IDENTIFIER, TK_NEW, TK_ARRAY, TK_SORT, TK_SAVE, TK_ASC, TK_TRUE, TK_FALSE, TK_EQUAL, TK_COMMA, TK_DOT, TK_SEMICOLON, TK_LPARENTHESIS, TK_RPARENTHESIS, TK_LBRACKET, TK_RBRACKET, TK_NUMBER, TK_STRING
+NonTerminal: <program>, <statements>, <statement>, <declaration>, <values>, <value>, <function_call>, <function>, <sort_function>, <save_function>, <sort_params>, <boolean>
+
+Note: // and /* */ are comments, so they are not included in the grammar and are ignored by the parser and lexer.
+
+Productions:
+
+    <program> ::= <statements>
+    <statements> ::= <statement> <statements>
+                   | epsilon
+    <statement> ::= <declaration>
+                  | <function_call>
+
+    <declaration> ::= TK_ARRAY TK_IDENTIFIER TK_EQUAL TK_NEW TK_ARRAY TK_LBRACKET <values> TK_RBRACKET TK_SEMICOLON
+    <values> ::= <value> TK_COMMA <values>
+               | <value>
+    <value> ::= TK_NUMBER
+              | TK_STRING
+
+    <function_call> ::= TK_IDENTIFIER TK_DOT <function> TK_SEMICOLON
+    <function> ::= <sort_function>
+                 | <save_function>
+
+    <sort_function> ::= TK_SORT TK_LPARENTHESIS <sort_params> TK_RPARENTHESIS
+    <sort_params> ::= TK_ASC TK_EQUAL <boolean>
+                    | epsilon
+    <boolean> ::= TK_TRUE
+                | TK_FALSE
+
+    <save_function> ::= TK_SAVE TK_LPARENTHESIS TK_STRING TK_RPARENTHESIS
