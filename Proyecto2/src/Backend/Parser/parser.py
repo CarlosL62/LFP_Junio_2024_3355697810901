@@ -40,7 +40,7 @@ class Parser:
         elif self.tokens[0].type == TokenTypes.TK_IDENTIFIER:
             self.function_call()
         else:
-            self.syntax_errors.append(f"Syntax error: Unexpected token {self.tokens[0].lexeme} in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Unexpected token {self.tokens[0].lexeme} in line {self.tokens[0].line} in column {self.tokens[0].column}")
             self.recover_from_error()
 
     #<declaration> ::= TK_ARRAY TK_IDENTIFIER TK_EQUAL TK_NEW TK_ARRAY TK_LBRACKET <values> TK_RBRACKET TK_SEMICOLON
@@ -71,28 +71,28 @@ class Parser:
                                         self.symbol_table.append(declaration)
                                     else:
                                         self.syntax_errors.append(
-                                            f"Syntax error: Expected ';' in line {self.tokens[0].line}, but got {self.tokens[0].lexeme}")
+                                            f"Syntax error: Expected ';' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                                 else:
                                     self.syntax_errors.append(
-                                        f"Syntax error: Expected ']' in line {self.tokens[0].line}")
+                                        f"Syntax error: Expected ']' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                                     self.recover_from_error()
                             else:
-                                self.syntax_errors.append(f"Syntax error: Expected '[' in line {self.tokens[0].line}")
+                                self.syntax_errors.append(f"Syntax error: Expected '[' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                                 self.recover_from_error()
                         else:
-                            self.syntax_errors.append(f"Syntax error: Expected 'Array' in line {self.tokens[0].line}")
+                            self.syntax_errors.append(f"Syntax error: Expected 'Array' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                             self.recover_from_error()
                     else:
-                        self.syntax_errors.append(f"Syntax error: Expected 'new' in line {self.tokens[0].line}")
+                        self.syntax_errors.append(f"Syntax error: Expected 'new' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                         self.recover_from_error()
                 else:
-                    self.syntax_errors.append(f"Syntax error: Expected '=' in line {self.tokens[0].line}")
+                    self.syntax_errors.append(f"Syntax error: Expected '=' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                     self.recover_from_error()
             else:
-                self.syntax_errors.append(f"Syntax error: Expected an identifier in line {self.tokens[0].line}")
+                self.syntax_errors.append(f"Syntax error: Expected an identifier in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                 self.recover_from_error()
         else:
-            self.syntax_errors.append(f"Syntax error: Expected 'Array' in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Expected 'Array' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
             self.recover_from_error()
 
     #<values> ::= <value> TK_COMMA <values>
@@ -143,11 +143,11 @@ class Parser:
                         self.symbol_table.append(self.save_function_declared)
                 else:
                     self.syntax_errors.append(
-                        f"Syntax error: Expected ';' in line {self.tokens[0].line}, but got {self.tokens[0].lexeme}")
+                        f"Syntax error: Expected ';' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
             else:
-                self.syntax_errors.append(f"Syntax error: Expected '.' in line {self.tokens[0].line}")
+                self.syntax_errors.append(f"Syntax error: Expected '.' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
         else:
-            self.syntax_errors.append(f"Syntax error: Expected an identifier in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Expected an identifier in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
 
     SORT_FUNCTION = 1
     SAVE_FUNCTION = 2
@@ -170,7 +170,7 @@ class Parser:
             if save_function_correct:
                 return self.SAVE_FUNCTION
         else:
-            self.syntax_errors.append(f"Syntax error: Unexpected function {self.tokens[0].lexeme} in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Unexpected function {self.tokens[0].lexeme} in line {self.tokens[0].line} in column {self.tokens[0].column}, expected 'sort' or 'save'")
 
     #<sort_function> ::= TK_SORT TK_LPARANTHESIS <sort_params> TK_RPARANTHESIS
     def sort_function(self):
@@ -189,11 +189,11 @@ class Parser:
                         self.sort_function_declared.boolean = Token(TokenTypes.TK_TRUE, 'true', -1, -1)
                     return sort_function_correct
                 else:
-                    self.syntax_errors.append(f"Syntax error: Expected ')' in line {self.tokens[0].line}")
+                    self.syntax_errors.append(f"Syntax error: Expected ')' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
             else:
-                self.syntax_errors.append(f"Syntax error: Expected '(' in line {self.tokens[0].line}")
+                self.syntax_errors.append(f"Syntax error: Expected '(' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
         else:
-            self.syntax_errors.append(f"Syntax error: Expected 'sort' in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Expected 'sort' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
 
     #<sort_params> ::= TK_ASC TK_EQUAL <boolean>
     def sort_params(self):
@@ -203,9 +203,9 @@ class Parser:
                 self.tokens.pop(0)
                 return self.boolean()
             else:
-                self.syntax_errors.append(f"Syntax error: Expected '=' in line {self.tokens[0].line}")
+                self.syntax_errors.append(f"Syntax error: Expected '=' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
         else:
-            self.syntax_errors.append(f"Syntax error: Expected 'asc' in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Expected 'asc' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
 
     #<boolean> ::= TK_TRUE
     #          | TK_FALSE
@@ -215,7 +215,7 @@ class Parser:
         elif self.tokens[0].type == TokenTypes.TK_FALSE:
             return self.tokens.pop(0)
         else:
-            self.syntax_errors.append(f"Syntax error: Expected a boolean value in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Expected a boolean value in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
             return None
 
     #<save_function> ::= TK_SAVE TK_LPARENTHESIS TK_STRING TK_RPARENTHESIS
@@ -232,13 +232,13 @@ class Parser:
                         save_function_correct = True
                         return save_function_correct
                     else:
-                        self.syntax_errors.append(f"Syntax error: Expected ')' in line {self.tokens[0].line}")
+                        self.syntax_errors.append(f"Syntax error: Expected ')' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
                 else:
-                    self.syntax_errors.append(f"Syntax error: Expected a string in line {self.tokens[0].line}")
+                    self.syntax_errors.append(f"Syntax error: Expected a string in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
             else:
-                self.syntax_errors.append(f"Syntax error: Expected '(' in line {self.tokens[0].line}")
+                self.syntax_errors.append(f"Syntax error: Expected '(' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
         else:
-            self.syntax_errors.append(f"Syntax error: Expected 'save' in line {self.tokens[0].line}")
+            self.syntax_errors.append(f"Syntax error: Expected 'save' in line {self.tokens[0].line} in column {self.tokens[0].column} , but got {self.tokens[0].lexeme}")
 
     def recover_from_error(self):
         while self.tokens[0].type != TokenTypes.TK_EOF:

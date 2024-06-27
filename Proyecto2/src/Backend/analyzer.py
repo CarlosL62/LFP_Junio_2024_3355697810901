@@ -120,10 +120,16 @@ class Analyzer:
         self.statements = []
 
     def sort_elements(self, elements, asc):
-        if asc == 'TRUE':
-            return sorted(elements)
-        elif asc == 'FALSE':
-            return sorted(elements, reverse=True)
+        n = len(elements)
+        for i in range(n):
+            for j in range(0, n - i - 1):
+                if asc == 'TRUE':
+                    if elements[j] > elements[j + 1]:
+                        elements[j], elements[j + 1] = elements[j + 1], elements[j]
+                elif asc == 'FALSE':
+                    if elements[j] < elements[j + 1]:
+                        elements[j], elements[j + 1] = elements[j + 1], elements[j]
+        return elements
 
 #Example of use
 content1 = ('''//Editor de código fuente
